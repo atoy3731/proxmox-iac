@@ -1,0 +1,25 @@
+ssh_user: ENC[AES256_GCM,data:08/R2A==,iv:kfXGbjScYQtOz9i1+Ty4npwnkNrEK4S5IqUmlIzZJ54=,tag:Klw6sQH5WQaeDE66eOKf9Q==,type:str]
+ssh_password: ENC[AES256_GCM,data:z4wgTjK/Ezbs,iv:RFuG7211+MzNF/28MTSo7+pcsjpyASUlpC5r4vqupjw=,tag:SCwwIPLI14UqCdk9odtQ9Q==,type:str]
+ssh_key_public: ENC[AES256_GCM,data:obYgcgSwmh7hevEkwjwGUttrM11kmNLkB+V3ZLtP16sf1G3AOu0vMx8sYtb/2IYuJyM7x02sCGlIT3U3NPuyZYA7gzjCZtIiepb4HbBlxjD7nGBBWMrZ5K43+fzfSk3rutj//kgj94VRFXNaccBG7qSn/Tjh243PE8nhmSRA6szNrqn4ph4QnB2ts74u0vGYv9aD4UUb1w6UCRuu3UwHIHVA40Gz3AnPz4TUSKGsCxVmiMd5/C39jqsmCQI3eBP2jJpaJbpDCkg7GFrJnsqdqzM0ezBtExfO5Go9TpB4ldp5OvplLZ5+pdpHX7sym4G61Sf6m0rkVUS35yOz7eVAbff6mRdqPJbL/grxKaioHV1Gst9s9WNMvBF8rw8M74MnPLqZpMYwLNzfAZo00uds6TWFEc85vSkTcLPwSyYZak41g7U9o4Kfcgm9rviImc2GD2ubqx+Wf3eCE81MUObB/aRpbmPWHoL/OCPflN7oGOUFKyoXcL00xQQ/mhGEXNHDq8bhkhygsT/ETF5dK9FyCnOV2R4=,iv:99jrjNveV1BER6Cw/bm46Zj1IZhSWcZQ+pCrO94OkTM=,tag:6E1KHXCLUTlMe2DOWsvTxg==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    lastmodified: '2022-04-23T13:50:59Z'
+    mac: ENC[AES256_GCM,data:aJIBWBlcEcVFRHYddDQ1G1lL5VhnLGPQm2KTQhsccp608HFLY3iN1LvKS470SZVH+bCVCNznymMiwDR7IMY2eKFtVyOxZxM2Vm9ynhMqFC5Hc5qGuPOSD1VXngV72bjXotxipHACu/T67ozTPUcbvY243Knc0+PsyJkoscw13AI=,iv:/MxitbrLWT1fj8vTpPTQxiG0J2d21CBJiIMxTv4qers=,tag:HfimgLYnrt5M5KqqjOhQLg==,type:str]
+    pgp:
+    -   created_at: '2022-04-23T13:50:58Z'
+        enc: |
+            -----BEGIN PGP MESSAGE-----
+
+            hF4D6KFr/2x+uUwSAQdAxFLgn+ewD7v+SrCvBrWzvxDQfkBLLSYVAFt9vK4lPh4w
+            sjZ2GQeR5+XyE7uNJEIw2oqy8QY1OT8mTl7n4AGUUM2EXaaZcky215Kpt6dllAeE
+            1GYBCQIQpnq6TCxYPDoxkFvKIXO9I/C8HMbtWvFBuO1N1f4i94LLoKO6fs233OP0
+            h1QBtPP4lz0Lz/GpDYAGbSIrEnKi37wAjY8Ovv+awZtebkTGY4im5YUVgQhfo7qS
+            cs54I7cHM/o=
+            =2Osm
+            -----END PGP MESSAGE-----
+        fp: 35BF4856BB7B84E99A0B0096F95F4EAAED799992
+    unencrypted_suffix: _unencrypted
+    version: 3.6.1
