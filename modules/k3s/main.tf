@@ -50,12 +50,12 @@ resource "proxmox_vm_qemu" "controlplane_first" {
     size    = var.cp_disk_size
   }
 
-  # connection {
-  #   type        = "ssh"
-  #   user        = var.ssh_user
-  #   private_key = var.ssh_key_private
-  #   host        = self.ssh_host
-  # }
+  connection {
+    type        = "ssh"
+    user        = var.ssh_user
+    private_key = var.ssh_key_private
+    host        = self.ssh_host
+  }
 
   provisioner "file" {
     source      = "scripts/controlplane-first.sh"
@@ -100,12 +100,12 @@ resource "proxmox_vm_qemu" "controlplane_all" {
     size    = var.cp_disk_size
   }
 
-  # connection {
-  #   type        = "ssh"
-  #   user        = var.ssh_user
-  #   private_key = var.ssh_key_private
-  #   host        = self.ssh_host
-  # }
+  connection {
+    type        = "ssh"
+    user        = var.ssh_user
+    private_key = var.ssh_key_private
+    host        = self.ssh_host
+  }
 
   provisioner "file" {
     source      = "scripts/controlplane-all.sh"
@@ -151,6 +151,13 @@ resource "proxmox_vm_qemu" "agents" {
     type    = var.disk_type
     storage = var.storage_pool
     size    = var.agent_disk_size
+  }
+
+  connection {
+    type        = "ssh"
+    user        = var.ssh_user
+    private_key = var.ssh_key_private
+    host        = self.ssh_host
   }
 
   provisioner "file" {

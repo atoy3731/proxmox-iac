@@ -45,6 +45,7 @@ inputs = {
   ssh_user = local.ssh_creds.ssh_user
   ssh_password = local.ssh_creds.ssh_password
   ssh_key_public = local.ssh_creds.ssh_key_public
+  ssh_key_private = local.ssh_creds.ssh_key_private
 
   dns_servers = "10.0.10.1"
 

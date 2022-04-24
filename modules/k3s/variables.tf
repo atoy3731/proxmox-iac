@@ -83,6 +83,11 @@ variable "ssh_password" {
   default     = null
 }
 
+variable "ssh_key_private" {
+  description = "SSH private key"
+  type        = string
+}
+
 variable "ssh_key_public" {
   description = "SSH public key"
   type        = string
