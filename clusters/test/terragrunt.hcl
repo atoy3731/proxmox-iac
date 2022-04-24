@@ -13,7 +13,7 @@ include {
 }
 
 inputs = {
-  cluster_name = "vault"
+  cluster_name = "test"
 
   cluster_secret = local.cluster_secrets.cluster_secret
 
@@ -36,7 +36,7 @@ inputs = {
   cp_cores = "3"
   cp_disk_size = "32G"
 
-  register_ip_addr = "10.0.11.28"
+  register_ip_addr = "10.0.11.31"
   gateway = "10.0.11.1"
 
   clone_template = "ubuntu-ci-template"
