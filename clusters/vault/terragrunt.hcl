@@ -23,8 +23,8 @@ inputs = {
   prox_api_token = local.prox_creds.prox_api_token
   prox_nodes = local.prox_creds.prox_nodes
 
-  controlplane_count = 2
-  agent_count = 1
+  controlplane_count = 3
+  agent_count = 0
 
   # Controlplane Node Metadata
   cp_memory = "8192"
@@ -32,9 +32,9 @@ inputs = {
   cp_disk_size = "32G"
 
   # Agent Node Metadata
-  cp_memory = "8192"
-  cp_cores = "3"
-  cp_disk_size = "32G"
+  agent_memory = "8192"
+  agent_cores = "3"
+  agent_disk_size = "32G"
 
   register_ip_addr = "10.0.11.28"
   gateway = "10.0.11.1"

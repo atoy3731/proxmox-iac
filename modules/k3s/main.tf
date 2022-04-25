@@ -15,7 +15,7 @@ provider "proxmox" {
 
 resource "random_shuffle" "prox_nodes" {
   input        = var.prox_nodes
-  result_count = var.controlplane_count + var.agent_count
+  result_count = var.result_count
 
   keepers = {
     cluster_name = "${var.cluster_name}"
@@ -115,7 +115,7 @@ resource "proxmox_vm_qemu" "controlplane_all" {
   provisioner "remote-exec" {
     inline = [
       "sudo chmod +x /tmp/controlplane-all.sh",
-      "sudo /tmp/controlplane-all.sh \"${self.name}\" \"${var.cluster_secret}\" \"${proxmox_vm_qemu.controlplane_first.ssh_host}\""
+      "sudo /tmp/controlplane-all.sh \"${count.index}\" \"${self.name}\" \"${var.cluster_secret}\" \"${proxmox_vm_qemu.controlplane_first.ssh_host}\""
     ]
   }
 
