@@ -25,7 +25,7 @@ resource "random_shuffle" "prox_nodes" {
 resource "proxmox_vm_qemu" "controlplane_first" {
   name        = "${random_shuffle.prox_nodes.keepers.cluster_name}-cp-1"
   target_node = random_shuffle.prox_nodes.result[0]
-  ipconfig0   = "ip=${var.register_ip_addr}/24,gw=${var.gateway}"
+  ipconfig0   = "ip=dhcp"
   agent       = var.qemu_agent
   clone       = var.clone_template
 
