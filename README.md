@@ -1,5 +1,13 @@
 # Proxmox K3s IaC
 
+## Prerequisites
+
+* (Terraform)[https://www.terraform.io/downloads]
+* (Terragrunt)[https://terragrunt.gruntwork.io/docs/getting-started/install/]
+* (SOPS)[https://github.com/mozilla/sops#id3]
+* (GPG)[https://gnupg.org/download/]
+* (Proxmox API Token)[https://pve.proxmox.com/wiki/Proxmox_VE_API]
+
 ## Initial Setup
 
 For sensitive values, Terragrunt gives you the ability to use SOPS to encrypt/decrypt them so they can be stored in Git. For the same of simplicity, this is using GPG.
@@ -14,6 +22,7 @@ For sensitive values, Terragrunt gives you the ability to use SOPS to encrypt/de
         AB12 CD34 EF56 GH78 IJ90  KL12 MN34 OP56 QR78 ST90
   uid           [ultimate] John Doe <john.doe@example.com>
   sub   cv25519 2022-04-22 [E] [expires: 2024-04-21]
+  ```
 
 3. Remove the spaces from your fingerprint, for instance this:
   ```
@@ -31,3 +40,101 @@ For sensitive values, Terragrunt gives you the ability to use SOPS to encrypt/de
   - pgp: >-
       AB12CD34EF56GH78IJ90KL12MN34OP56QR78ST90
   ```
+
+#### Creating the Ubuntu CloudInit Template
+
+You'll need to run the following commands on each of your Proxmox nodes in the cluster (or copy the template between):
+
+```
+cd /tmp
+wget https://cloud-images.ubuntu.com/focal/current/focal-server-cloudimg-amd64.img
+virt-customize -a /tmp/focal-server-cloudimg-amd64.img --install qemu-guest-agent
+virt-customize -a /tmp/focal-server-cloudimg-amd64.img --run-command "echo -n > /etc/machine-id"
+touch /etc/pve/nodes/prox1/qemu-server/9991.conf
+qm importdisk 9991 /tmp/focal-server-cloudimg-amd64.img local-lvm
+qm set 9991 --scsihw virtio-scsi-pci --scsi0 local-lvm:vm-9991-disk-0
+qm set 9991 --ide2 local-lvm:cloudinit
+qm set 9991 --boot c --bootdisk scsi0
+qm set 9991 --serial0 socket --vga serial0
+qm set 9991 --agent enabled=1
+qm set 9991 --name ubuntu-ci-template
+qm template 9991
+```
+
+**NOTE**: For each Proxmox node, you'll need to increase the ID (aka, 9991, 9992, 9993, etc.). They are globally unique.
+
+# Installing to Proxmox
+
+## Common
+
+Under the `clusters` directory, you'll need to update the `prox_creds.enc.yaml` and `ssh_creds.enc.yaml` file with your values. Once updated, you'll need to run the follow commands to encrypt them with SOPS (ensure you've created your GPG key and updated the `.sops.yaml`):
+
+```
+cd clusters/
+sops -i -e prox_creds.enc.yaml
+sops -i -e ssh_creds.enc.yaml
+```
+
+## Pure K3s Cluster
+
+1. Copy the `k3s-example/` directory to another directory.
+
+2. Update the `cluster_secrets.enc.yaml` with whatever join token you want and encrypt the file with:
+
+  ```
+  cd clusters/name-of-your-dir/
+  sops -i -e cluster_secrets.enc.yaml
+  ```
+
+3. Update the `terragunt.hcl` file with your desired values.
+
+4. In the directory that copied, go into it and run:
+
+  ```
+  terragrunt plan
+  ```
+
+5. Assuming all is expect, running:
+
+  ```
+  terragrunt apply -y
+  ```
+
+## Rancher Provisioned Cluster
+
+1. Create a cluster in Rancher and acquire the Rancher token and checksum: (Provisioning Custom Cluster)[https://rancher.com/docs/rancher/v2.5/en/cluster-provisioning/rke-clusters/custom-nodes/]
+
+2. Copy the `rancher-example/` directory to another directory.
+
+3. Update the `cluster_secrets.enc.yaml` with whatever join token you want and encrypt the file with:
+
+  ```
+  cd clusters/name-of-your-dir/
+  sops -i -e cluster_secrets.enc.yaml
+  ```
+
+4. Update the `terragunt.hcl` file with your desired values.
+
+5. In the directory that copied, go into it and run:
+
+  ```
+  terragrunt plan
+  ```
+
+5. Assuming all is expect, running:
+
+  ```
+  terragrunt apply -y
+  ```
+
+## Updating resources
+
+1. Update the `terragrunt.hcl` file with updatable things (resources, controlplane/worker node count, etc.)
+
+2. Run `terragrunt plan` and make sure only expected values are updating.
+
+3. Run `terragrunt apply` and type `yes`.
+
+## Deleting clusters
+
+1. In the cluster directory, run `terragrunt destroy`.

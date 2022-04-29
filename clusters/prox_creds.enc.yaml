@@ -1,29 +1,7 @@
-prox_url: ENC[AES256_GCM,data:lLtH65vyR+mEI7UNTcm5KM3rPmYff/mXWTnPYhCXwXfvvrpClA==,iv:wW8AIZ1E7CacZbSn4OVbRBpwM3TrRSL7R4q+elEMXW8=,tag:Sf7ib1EdISGAy6C/92VnbQ==,type:str]
-prox_api_id: ENC[AES256_GCM,data:oMibXeSOid+TBDvUWYbhLRtv,iv:z1OBJPv1vS/ZCxI7nWFZ2GCKVgdEUb5hkHtoLqC6YJ0=,tag:CO3nwCSL2KZIaPdrk7u1Ew==,type:str]
-prox_api_token: ENC[AES256_GCM,data:OxZOx9x+fOA1ul6UG2eusSqZ7TdQ4JNus7gUtkKRQ8cw34Kt,iv:RgyXNcouHTDF4Mf55I2SZKtDexQUABNQA+GxVAvJ5pQ=,tag:DmMADdzKeWkm5/3EEyIY4g==,type:str]
+prox_url: https://prox1.example.com:8006/api2/json
+prox_api_id: example@pam!terraform
+prox_api_token: abdcdef-1234-5678-9012-abcdefg123456
 prox_nodes:
-- ENC[AES256_GCM,data:9mNtjxs=,iv:4myTOGEcCbJ3cZOac7ZwjCOCN+s5Nc6d3q3JblmgFJY=,tag:+naSvoxpv73FchaRvLnnmg==,type:str]
-- ENC[AES256_GCM,data:eH9/Yo4=,iv:UH3hhaTniJa4BVbAl22HnEuHBbysNw+iUfMVRJV7abo=,tag:/0xLJeWjBS/36u8KwiUYpQ==,type:str]
-- ENC[AES256_GCM,data:xfYl3fA=,iv:Ds8+x6H1AU+cdUTENa2P2LDjoPS2K1Xef3tMBbyD3dY=,tag:9FaKlKt77rgeKTsGbeYfLA==,type:str]
-sops:
-    kms: []
-    gcp_kms: []
-    azure_kv: []
-    hc_vault: []
-    lastmodified: '2022-04-22T14:58:05Z'
-    mac: ENC[AES256_GCM,data:y+n6P+XZiBR2uVOeSdrSclT8R8i1C1M5h005dQGYxOxMO6JfNBxuNQdpmZljDDWmtheQjE6tpJMMNP+NRbYr4g3Tw0KlQc3yTcbEz+l9kw1+42XOTTFExD+hhuQai8ad5om8r+fMGHoRkiETjjPyWTIb4PRnegiP2dMmDacgY7c=,iv:klg/o/KQ0lHJUBy3vFvqkGa1nFcHBAujwzYIQI+FA6w=,tag:Jt05GsRJDxYJcrzn4/5v+w==,type:str]
-    pgp:
-    -   created_at: '2022-04-22T14:58:04Z'
-        enc: |
-            -----BEGIN PGP MESSAGE-----
-
-            hF4D6KFr/2x+uUwSAQdAuAQAMKNTqtpnyS79k5RSKDD4Tugs2E4W9XY26VSpPn8w
-            6k6GiIYAI/+HZcTpF+q+2AxUYdUqK9kRPbIH2ujKuAo+S9mGzcCK/2WPQoToBuJs
-            1GgBCQIQFQQKkTJHtMgYlHA28pi4xmd36LVusMrpJudFAhiM/4yuuLHICBxbXZyG
-            IHpVRHQwoXF3NuFbleci6RK5vI+wD44ahyqwatuIoWnRweQGqeVKYsf2ZEp0NJSm
-            NoI/iCkrcXzeiQ==
-            =NGdp
-            -----END PGP MESSAGE-----
-        fp: 35BF4856BB7B84E99A0B0096F95F4EAAED799992
-    unencrypted_suffix: _unencrypted
-    version: 3.6.1
+    - prox1
+    - prox2
+    - prox3

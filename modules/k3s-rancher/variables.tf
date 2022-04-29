@@ -30,12 +30,6 @@ variable "result_count" {
   default = 10
 }
 
-variable "register_ip_addr" {
-  description = "Static IP for configuring k8s cluster. Needs to be unique and unused."
-  type        = string
-  default     = "192.168.1.2"
-}
-
 variable "gateway" {
   description = "Gateway IP"
   type        = string

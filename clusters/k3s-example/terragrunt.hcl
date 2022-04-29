@@ -13,7 +13,7 @@ include {
 }
 
 inputs = {
-  cluster_name = "test"
+  cluster_name = "k3s-example"
 
   cluster_secret = local.cluster_secrets.cluster_secret
 
@@ -23,8 +23,8 @@ inputs = {
   prox_api_token = local.prox_creds.prox_api_token
   prox_nodes = local.prox_creds.prox_nodes
 
-  controlplane_count = 2
-  agent_count = 0
+  controlplane_count = 3
+  agent_count = 3
 
   # Controlplane Node Metadata
   cp_memory = "8192"
@@ -36,8 +36,7 @@ inputs = {
   agent_cores = "3"
   agent_disk_size = "32G"
 
-  register_ip_addr = "10.0.11.28"
-  gateway = "10.0.11.1"
+  gateway = "192.168.1.1"
 
   clone_template = "ubuntu-ci-template"
   qemu_agent = 1
@@ -47,7 +46,8 @@ inputs = {
   ssh_key_public = local.ssh_creds.ssh_key_public
   ssh_key_private = local.ssh_creds.ssh_key_private
 
-  dns_servers = "10.0.10.1"
+  dns_servers = "8.8.8.8"
 
+  # If utilizing VLANs
   vlan_tag = 2
 }
