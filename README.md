@@ -17,29 +17,31 @@ For sensitive values, Terragrunt gives you the ability to use SOPS to encrypt/de
 1. Run `gpg --gen-key` and enter your name and email. When prompted for a password, just hit Enter to bypass setting one.
 
 2. Acquire the GPG fingerprint by running `gpg --fingerprint` and finding the entry that matches your name/email. It should be the 2nd line of the output for yoru entry, for instance:
-  ```
-  pub   ab12345 2022-04-22 [SC] [expires: 2024-04-21]
-        AB12 CD34 EF56 GH78 IJ90  KL12 MN34 OP56 QR78 ST90
-  uid           [ultimate] John Doe <john.doe@example.com>
-  sub   cv25519 2022-04-22 [E] [expires: 2024-04-21]
-  ```
+
+```
+pub   ab12345 2022-04-22 [SC] [expires: 2024-04-21]
+      AB12 CD34 EF56 GH78 IJ90  KL12 MN34 OP56 QR78 ST90
+uid           [ultimate] John Doe <john.doe@example.com>
+sub   cv25519 2022-04-22 [E] [expires: 2024-04-21]
+```
 
 3. Remove the spaces from your fingerprint, for instance this:
-  ```
-  AB12 CD34 EF56 GH78 IJ90  KL12 MN34 OP56 QR78 ST90
-  ```
-  Should be:
-  ```
-  AB12CD34EF56GH78IJ90KL12MN34OP56QR78ST90
-  ```
+
+```
+AB12 CD34 EF56 GH78 IJ90  KL12 MN34 OP56 QR78 ST90
+```
+Should be:
+```
+AB12CD34EF56GH78IJ90KL12MN34OP56QR78ST90
+```
 
 4. Update the `.sops.yaml` file with your fingerprint.
 
-  ```
-  creation_rules:
-  - pgp: >-
-      AB12CD34EF56GH78IJ90KL12MN34OP56QR78ST90
-  ```
+```
+creation_rules:
+- pgp: >-
+    AB12CD34EF56GH78IJ90KL12MN34OP56QR78ST90
+```
 
 #### Creating the Ubuntu CloudInit Template
 
@@ -81,24 +83,24 @@ sops -i -e ssh_creds.enc.yaml
 
 2. Update the `cluster_secrets.enc.yaml` with whatever join token you want and encrypt the file with:
 
-  ```
-  cd clusters/name-of-your-dir/
-  sops -i -e cluster_secrets.enc.yaml
-  ```
+```
+cd clusters/name-of-your-dir/
+sops -i -e cluster_secrets.enc.yaml
+```
 
 3. Update the `terragunt.hcl` file with your desired values.
 
 4. In the directory that copied, go into it and run:
 
-  ```
-  terragrunt plan
-  ```
+```
+terragrunt plan
+```
 
 5. Assuming all is expect, running:
 
-  ```
-  terragrunt apply -y
-  ```
+```
+terragrunt apply -y
+```
 
 ## Rancher Provisioned Cluster
 
@@ -108,24 +110,24 @@ sops -i -e ssh_creds.enc.yaml
 
 3. Update the `cluster_secrets.enc.yaml` with whatever join token you want and encrypt the file with:
 
-  ```
-  cd clusters/name-of-your-dir/
-  sops -i -e cluster_secrets.enc.yaml
-  ```
+```
+cd clusters/name-of-your-dir/
+sops -i -e cluster_secrets.enc.yaml
+```
 
 4. Update the `terragunt.hcl` file with your desired values.
 
 5. In the directory that copied, go into it and run:
 
-  ```
-  terragrunt plan
-  ```
+```
+terragrunt plan
+```
 
 5. Assuming all is expect, running:
 
-  ```
-  terragrunt apply -y
-  ```
+```
+terragrunt apply -y
+```
 
 ## Updating resources
 
