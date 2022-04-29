@@ -2,11 +2,11 @@
 
 ## Prerequisites
 
-* (Terraform)[https://www.terraform.io/downloads]
-* (Terragrunt)[https://terragrunt.gruntwork.io/docs/getting-started/install/]
-* (SOPS)[https://github.com/mozilla/sops#id3]
-* (GPG)[https://gnupg.org/download/]
-* (Proxmox API Token)[https://pve.proxmox.com/wiki/Proxmox_VE_API]
+* [Terraform](https://www.terraform.io/downloads)
+* [Terragrunt](https://terragrunt.gruntwork.io/docs/getting-started/install/)
+* [SOPS](https://github.com/mozilla/sops#id3)
+* [GPG](https://gnupg.org/download/)
+* [Proxmox API Token](https://pve.proxmox.com/wiki/Proxmox_VE_API)
 
 ## Initial Setup
 
