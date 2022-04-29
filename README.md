@@ -79,6 +79,8 @@ sops -i -e ssh_creds.enc.yaml
 
 ## Pure K3s Cluster
 
+This will install K3s without a reliance on Rancher MCM. It pulls the K3s binary from Github. You can always register this cluster with Rancher MCM after provisioning through the UI.
+
 1. Copy the `k3s-example/` directory to another directory.
 
 2. Update the `cluster_secrets.enc.yaml` with whatever join token you want and encrypt the file with:
@@ -103,6 +105,8 @@ terragrunt apply -y
 ```
 
 ## Rancher Provisioned Cluster
+
+This utilizes's Rancher's custom cluster creation to automatically provision your cluster. The only dependency is `curl` and upon creation, the cluster will be in Rancher MCM.
 
 1. Create a cluster in Rancher and acquire the Rancher token and checksum: (Provisioning Custom Cluster)[https://rancher.com/docs/rancher/v2.5/en/cluster-provisioning/rke-clusters/custom-nodes/]
 
