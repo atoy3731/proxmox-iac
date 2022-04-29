@@ -26,3 +26,8 @@ For sensitive values, Terragrunt gives you the ability to use SOPS to encrypt/de
 
 4. Update the `.sops.yaml` file with your fingerprint.
 
+  ```
+  creation_rules:
+  - pgp: >-
+      AB12CD34EF56GH78IJ90KL12MN34OP56QR78ST90
+  ```
