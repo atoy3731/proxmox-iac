@@ -13,11 +13,6 @@ variable "cluster_secret" {
   type        = string
 }
 
-variable "registration_host" {
-  description = "Host/IP of the controlplane node to register to"
-  type        = string
-}
-
 variable "vlan_tag" {
   description = "Tag for VLAN (Optional)"
   type        = number
@@ -92,43 +87,37 @@ variable "ssh_key_public" {
   type        = string
 }
 
-##########
-# Agents #
-##########
+########
+# Node #
+########
 
-variable "agent_name" {
-  description = "Name for this group of agent nodes"
-  type        = string
-  default     = ""
+variable "node_init_script" {
+  description = "Init script for node(s)"
+  type = "string"
+  default = ""
 }
 
-variable "agent_count" {
-  description = "Number of agent nodes"
+variable "node_count" {
+  description = "Number of nodes"
   type        = number
   default     = 0
 }
 
-variable "agent_disk_size" {
+variable "node_disk_size" {
   type    = string
   default = "10G"
 }
 
-variable "agent_cores" {
+variable "node_cores" {
   description = "Cores for each agent node"
   type        = number
   default     = 2
 }
 
-variable "agent_memory" {
+variable "node_memory" {
   description = "Memory for each agent node"
   type        = string
   default     = "8192"
-}
-
-variable "agent_config" {
-  description = "Agent config file"
-  type        = string
-  default     = ""
 }
 
 ###########

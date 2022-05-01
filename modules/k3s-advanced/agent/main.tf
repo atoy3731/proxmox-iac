@@ -39,10 +39,10 @@ resource "proxmox_vm_qemu" "agents" {
   cipassword = var.ssh_password
 
   network {
-    model = "virtio"
-    bridge = "vmbr0"
+    model    = "virtio"
+    bridge   = "vmbr0"
     firewall = true
-    tag = var.vlan_tag
+    tag      = var.vlan_tag
   }
 
   disk {
@@ -59,7 +59,7 @@ resource "proxmox_vm_qemu" "agents" {
   }
 
   provisioner "file" {
-    content      = var.agent_config
+    content     = var.agent_config
     destination = "/tmp/config.yaml"
   }
 

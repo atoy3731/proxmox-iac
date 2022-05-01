@@ -15,14 +15,14 @@ variable "cluster_secret" {
 
 variable "vlan_tag" {
   description = "Tag for VLAN (Optional)"
-  type = number
-  default = -1
+  type        = number
+  default     = -1
 }
 
 variable "result_count" {
   description = "Count of results. Needs to be higher than the future expected full number of nodes."
-  type = number
-  default = 10
+  type        = number
+  default     = 10
 }
 
 variable "clone_template" {

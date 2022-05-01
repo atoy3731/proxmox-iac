@@ -57,23 +57,15 @@ resource "proxmox_vm_qemu" "controlplane_first" {
     host        = self.ssh_host
   }
 
-
-  provisioner "file" {
-    content     = var.cp_config
-    destination = "/tmp/config.yaml"
-  }
-
   provisioner "file" {
     source      = "scripts/controlplane-first.sh"
-    destination = "/tmp/controlplane.sh"
+    destination = "/tmp/controlplane-first.sh"
   }
 
   provisioner "remote-exec" {
     inline = [
-      "sudo mkdir -p /etc/rancher/k3s",
-      "sudo mv /tmp/config.yaml /etc/rancher/k3s/config.yaml",
-      "sudo chmod +x /tmp/controlplane.sh",
-      "sudo /tmp/controlplane.sh \"${var.controlplane_count}\" \"${self.name}\" \"${var.cluster_secret}\""
+      "sudo chmod +x /tmp/controlplane-first.sh",
+      "sudo /tmp/controlplane-first.sh \"${var.controlplane_count}\" \"${self.name}\" \"${var.cluster_secret}\""
     ]
   }
 }
@@ -116,21 +108,14 @@ resource "proxmox_vm_qemu" "controlplane_all" {
   }
 
   provisioner "file" {
-    content     = var.cp_config
-    destination = "/tmp/config.yaml"
-  }
-
-  provisioner "file" {
-    source      = "scripts/controlplane-all.sh"
-    destination = "/tmp/controlplane.sh"
+    content      = var.node_init_script
+    destination = "/tmp/init.sh"
   }
 
   provisioner "remote-exec" {
     inline = [
-      "sudo mkdir -p /etc/rancher/k3s",
-      "sudo mv /tmp/config.yaml /etc/rancher/k3s/config.yaml",
-      "sudo chmod +x /tmp/controlplane.sh",
-      "sudo /tmp/controlplane-all.sh \"${count.index}\" \"${self.name}\" \"${var.cluster_secret}\" \"${proxmox_vm_qemu.controlplane_first.ssh_host}\""
+      "sudo chmod +x /tmp/init.sh",
+      "sudo /tmp/init.sh"
     ]
   }
 

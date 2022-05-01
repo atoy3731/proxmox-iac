@@ -77,6 +77,26 @@ sops -i -e prox_creds.enc.yaml
 sops -i -e ssh_creds.enc.yaml
 ```
 
+## General Cluster/node (No K3s)
+
+For a general cluster/node that don't require K3s..
+
+1. Copy the `general-example` and update the `terragrunt.hcl` file with the values you need.
+
+2. Run the following in your directory:
+
+```
+terragrunt plan
+```
+
+3. If that looks alright, run:
+
+```
+terragrunt apply
+```
+
+And type 'yes' when prompted.
+
 ## Pure K3s Cluster
 
 This will install K3s without a reliance on Rancher MCM. It pulls the K3s binary from Github. You can always register this cluster with Rancher MCM after provisioning through the UI.
