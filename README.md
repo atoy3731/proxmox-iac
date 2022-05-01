@@ -104,6 +104,49 @@ terragrunt plan
 terragrunt apply -y
 ```
 
+## Advanced K3s Cluster
+
+For K3s clusters that need multiple agent nodepools with specific resources/labels/taints, you can use the `k3s-advanced` example.
+
+1. Copy the `k3s-advanced-example/` directory to another directory.
+
+2. Update the `cluster_secrets.enc.yaml` with whatever join token you want and encrypt the file with:
+
+```
+cd clusters/name-of-your-dir/
+sops -i -e cluster_secrets.enc.yaml
+```
+
+3. Update the `cluster_configs.yaml` with the common values to be shared between your nodepools (ie. cluster name, dns servers, etc.)
+
+4. Update the `terragunt.hcl` in the `controlplane`, `critical`, and `general` directories with your desired values. You can adjust the nodepool directory names as you wish, as well as add more.
+
+5. Terrgrunt gives you 2 different ways to deploy multi-module TG:
+
+  1. Deploy all together at once (less ideal, but quicker). Go into the parent-level `k3s-advanced-example` directory and run:
+
+    ```
+    terragrunt run-all plan
+    ```
+
+    If that looks right, run:
+
+    ```
+    terragrunt run-all apply
+    ```
+
+  2. Deploy separately (safer, but takes time). Starting with the `controlplane` directory, then moving to each agent directory:
+
+    ```
+    terragrunt plan
+    ```
+
+    If that looks right, run:
+
+    ```
+    terragrunt apply
+    ```
+
 ## Rancher Provisioned Cluster
 
 This utilizes's Rancher's custom cluster creation to automatically provision your cluster. The only dependency is `curl` and upon creation, the cluster will be in Rancher MCM.
