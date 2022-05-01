@@ -129,7 +129,7 @@ sops -i -e cluster_secrets.enc.yaml
 terragrunt run-all plan
 ```
 
-    If that looks right, run:
+  If that looks right, run:
 
 ```
 terragrunt run-all apply
@@ -141,7 +141,7 @@ terragrunt run-all apply
 terragrunt plan
 ```
 
-    If that looks right, run:
+  If that looks right, run:
 
 ```
 terragrunt apply
