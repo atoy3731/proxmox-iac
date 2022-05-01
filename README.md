@@ -125,27 +125,27 @@ sops -i -e cluster_secrets.enc.yaml
 
   1. Deploy all together at once (less ideal, but quicker). Go into the parent-level `k3s-advanced-example` directory and run:
 
-    ```
-    terragrunt run-all plan
-    ```
+```
+terragrunt run-all plan
+```
 
     If that looks right, run:
 
-    ```
-    terragrunt run-all apply
-    ```
+```
+terragrunt run-all apply
+```
 
   2. Deploy separately (safer, but takes time). Starting with the `controlplane` directory, then moving to each agent directory:
 
-    ```
-    terragrunt plan
-    ```
+```
+terragrunt plan
+```
 
     If that looks right, run:
 
-    ```
-    terragrunt apply
-    ```
+```
+terragrunt apply
+```
 
 ## Rancher Provisioned Cluster
 
