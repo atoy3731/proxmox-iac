@@ -5,7 +5,7 @@ locals {
 }
 
 terraform {
-    source = "../../modules/k3s-rancher"
+    source = "../../modules/k3s"
 }
 
 include {
@@ -13,7 +13,9 @@ include {
 }
 
 inputs = {
-  cluster_name = "rancher-example"
+  cluster_name = "k3s-example"
+
+  cluster_secret = local.cluster_secrets.cluster_secret
 
   # Load Prox creds from encrypted secret
   prox_url = local.prox_creds.prox_url
@@ -21,9 +23,9 @@ inputs = {
   prox_api_token = local.prox_creds.prox_api_token
   prox_nodes = local.prox_creds.prox_nodes
 
-  controlplane_count = 2
-  agent_count = 1
-  
+  controlplane_count = 3
+  agent_count = 3
+
   # Controlplane Node Metadata
   cp_memory = "8192"
   cp_cores = "3"
@@ -46,9 +48,6 @@ inputs = {
 
   dns_servers = "8.8.8.8"
 
+  # If utilizing VLANs
   vlan_tag = 2
-
-  rancher_url = "rancher.example.com"
-  rancher_token = local.cluster_secrets.rancher_token
-  rancher_checksum = local.cluster_secrets.rancher_checksum
 }

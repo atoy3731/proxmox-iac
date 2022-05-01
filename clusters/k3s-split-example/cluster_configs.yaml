@@ -1,0 +1,2 @@
+cluster_name: "k3s-split-example"
+dns_servers: 8.8.8.8

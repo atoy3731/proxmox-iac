@@ -8,18 +8,13 @@ variable "cluster_name" {
   default     = "foobar"
 }
 
-variable "rancher_url" {
-  description = "URL of Rancher"
-  type = string
-}
-
-variable "rancher_token" {
+variable "cluster_secret" {
   description = "Cluster secret for nodes joining k3s"
   type        = string
 }
 
-variable "rancher_checksum" {
-  description = "Rancher checksum"
+variable "registration_host" {
+  description = "Host/IP of the controlplane node to register to"
   type = string
 }
 
@@ -33,12 +28,6 @@ variable "result_count" {
   description = "Count of results. Needs to be higher than the future expected full number of nodes."
   type = number
   default = 10
-}
-
-variable "gateway" {
-  description = "Gateway IP"
-  type        = string
-  default     = "192.168.1.1"
 }
 
 variable "clone_template" {
@@ -103,37 +92,15 @@ variable "ssh_key_public" {
   type        = string
 }
 
-################
-# ControlPlane #
-################
-
-variable "controlplane_count" {
-  description = "Number of controlplane nodes"
-  type        = number
-  default     = 1
-}
-
-variable "cp_disk_size" {
-  description = "Disk size of the controlplane nodes"
-  type        = string
-  default     = "75G"
-}
-
-variable "cp_cores" {
-  description = "Cores for each controlplane node"
-  type        = number
-  default     = 2
-}
-
-variable "cp_memory" {
-  description = "Memory for each controlplane node"
-  type        = string
-  default     = "8192"
-}
-
 ##########
 # Agents #
 ##########
+
+variable "agent_name" {
+  description = "Name for this group of agent nodes"
+  type = string
+  default = ""
+}
 
 variable "agent_count" {
   description = "Number of agent nodes"
@@ -156,6 +123,12 @@ variable "agent_memory" {
   description = "Memory for each agent node"
   type        = string
   default     = "8192"
+}
+
+variable "agent_config" {
+  description = "Agent config file"
+  type        = string
+  default     = ""
 }
 
 ###########

@@ -1,19 +1,29 @@
 locals {
   prox_creds = yamldecode(sops_decrypt_file(find_in_parent_folders("prox_creds.enc.yaml")))
   ssh_creds = yamldecode(sops_decrypt_file(find_in_parent_folders("ssh_creds.enc.yaml")))
-  cluster_secrets = yamldecode(sops_decrypt_file("cluster_secrets.enc.yaml"))
+  cluster_secrets = yamldecode(sops_decrypt_file(find_in_parent_folders("cluster_secrets.enc.yaml")))
+  cluster_configs = yamldecode(file(find_in_parent_folders("cluster_configs.yaml")))
 }
 
 terraform {
-    source = "../../modules/k3s-rancher"
+    source = "../../../modules/k3s-split/agent"
 }
 
 include {
     path = find_in_parent_folders()
 }
 
+dependency "controlplane" {
+  config_path = "../controlplane"
+}
+
 inputs = {
-  cluster_name = "rancher-example"
+  cluster_name = local.cluster_configs.cluster_name
+  cluster_secret = local.cluster_secrets.cluster_secret
+
+  agent_name = "general"
+
+  registration_host = dependency.controlplane.outputs.registration_host
 
   # Load Prox creds from encrypted secret
   prox_url = local.prox_creds.prox_url
@@ -21,20 +31,17 @@ inputs = {
   prox_api_token = local.prox_creds.prox_api_token
   prox_nodes = local.prox_creds.prox_nodes
 
-  controlplane_count = 2
   agent_count = 1
-  
-  # Controlplane Node Metadata
-  cp_memory = "8192"
-  cp_cores = "3"
-  cp_disk_size = "32G"
 
   # Agent Node Metadata
   agent_memory = "8192"
   agent_cores = "3"
   agent_disk_size = "32G"
 
-  gateway = "192.168.1.1"
+  agent_config = <<EOT
+node-label:
+  - "group=general"
+EOT
 
   clone_template = "ubuntu-ci-template"
   qemu_agent = 1
@@ -44,11 +51,8 @@ inputs = {
   ssh_key_public = local.ssh_creds.ssh_key_public
   ssh_key_private = local.ssh_creds.ssh_key_private
 
-  dns_servers = "8.8.8.8"
+  dns_servers = local.cluster_configs.dns_servers
 
+  # If utilizing VLANs
   vlan_tag = 2
-
-  rancher_url = "rancher.example.com"
-  rancher_token = local.cluster_secrets.rancher_token
-  rancher_checksum = local.cluster_secrets.rancher_checksum
 }

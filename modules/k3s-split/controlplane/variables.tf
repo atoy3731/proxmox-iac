@@ -8,19 +8,9 @@ variable "cluster_name" {
   default     = "foobar"
 }
 
-variable "rancher_url" {
-  description = "URL of Rancher"
-  type = string
-}
-
-variable "rancher_token" {
+variable "cluster_secret" {
   description = "Cluster secret for nodes joining k3s"
   type        = string
-}
-
-variable "rancher_checksum" {
-  description = "Rancher checksum"
-  type = string
 }
 
 variable "vlan_tag" {
@@ -33,12 +23,6 @@ variable "result_count" {
   description = "Count of results. Needs to be higher than the future expected full number of nodes."
   type = number
   default = 10
-}
-
-variable "gateway" {
-  description = "Gateway IP"
-  type        = string
-  default     = "192.168.1.1"
 }
 
 variable "clone_template" {
@@ -131,31 +115,10 @@ variable "cp_memory" {
   default     = "8192"
 }
 
-##########
-# Agents #
-##########
-
-variable "agent_count" {
-  description = "Number of agent nodes"
-  type        = number
-  default     = 0
-}
-
-variable "agent_disk_size" {
-  type    = string
-  default = "10G"
-}
-
-variable "agent_cores" {
-  description = "Cores for each agent node"
-  type        = number
-  default     = 2
-}
-
-variable "agent_memory" {
-  description = "Memory for each agent node"
+variable "cp_config" {
+  description = "Agent config file"
   type        = string
-  default     = "8192"
+  default     = ""
 }
 
 ###########
