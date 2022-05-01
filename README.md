@@ -123,7 +123,7 @@ sops -i -e cluster_secrets.enc.yaml
 
 5. Terrgrunt gives you 2 different ways to deploy multi-module TG:
 
-  1. Deploy all together at once (less ideal, but quicker). Go into the parent-level `k3s-advanced-example` directory and run:
+  1. Deploy all together at once (less ideal, but quicker). Go into the parent-level of your copied `k3s-advanced-example` directory and run:
 
 ```
 terragrunt run-all plan
