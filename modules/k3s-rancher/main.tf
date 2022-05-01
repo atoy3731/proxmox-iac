@@ -67,7 +67,7 @@ resource "proxmox_vm_qemu" "controlplane_all" {
   provisioner "remote-exec" {
     inline = [
       "sudo chmod +x /tmp/controlplane-all.sh",
-      "sudo /tmp/controlplane-all.sh \"${var.rancher_token}\" \"${var.rancher_checksum}\""
+      "sudo /tmp/controlplane-all.sh \"${var.rancher_token}\" \"${var.rancher_checksum}\" \"${var.rancher_url}\""
     ]
   }
 }
@@ -116,7 +116,7 @@ resource "proxmox_vm_qemu" "agents" {
   provisioner "remote-exec" {
     inline = [
       "sudo chmod +x /tmp/agent.sh",
-      "sudo /tmp/agent.sh \"${var.rancher_token}\" \"${var.rancher_checksum}\""
+      "sudo /tmp/agent.sh \"${var.rancher_token}\" \"${var.rancher_checksum}\" \"${var.rancher_url}\""
     ]
   }
 
