@@ -1,5 +1,9 @@
 # Proxmox K3s IaC
 
+This repo is a "guide" for using Terraform to manage/maintain K3s clusters within Proxmox. It can also be modified to manage general VMs or potentially RKE2.
+
+Huge shoutout to [andrewsgreene](https://github.com/andrewsgreene/HaC) for the motivation and support. :-D
+
 ## Prerequisites
 
 * [Terraform](https://www.terraform.io/downloads)
