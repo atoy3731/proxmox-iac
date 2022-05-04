@@ -29,11 +29,11 @@ inputs = {
 
   # Init script for node
   node_init_script = <<EOT
-  #!/bin/bash
+#!/bin/bash
 
-  # Put your init stuff here
-  # apt update -y
-  EOT
+echo "Testing1234" > ~/test.txt
+ 
+EOT
 
   clone_template = "ubuntu-ci-template"
   qemu_agent = 1
@@ -43,7 +43,7 @@ inputs = {
   ssh_key_public = local.ssh_creds.ssh_key_public
   ssh_key_private = local.ssh_creds.ssh_key_private
 
-  dns_servers = "8.8.8.8"
+  dns_servers = "10.0.10.1"
 
   # If utilizing VLANs
   vlan_tag = 2

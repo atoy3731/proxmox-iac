@@ -18,62 +18,14 @@ resource "random_shuffle" "prox_nodes" {
   result_count = var.result_count
 
   keepers = {
-    cluster_name = "${var.cluster_name}"
+    cluster_name = var.cluster_name
   }
 }
 
-resource "proxmox_vm_qemu" "controlplane_first" {
-  name        = "${random_shuffle.prox_nodes.keepers.cluster_name}-cp-1"
-  target_node = random_shuffle.prox_nodes.result[0]
-  ipconfig0   = "ip=dhcp"
-  agent       = var.qemu_agent
-  clone       = var.clone_template
-
-  network {
-    model    = "virtio"
-    bridge   = "vmbr0"
-    firewall = true
-    tag      = var.vlan_tag
-  }
-
-  memory     = var.cp_memory
-  cores      = var.cp_cores
-  os_type    = var.os_type
-  nameserver = var.dns_servers
-  sshkeys    = var.ssh_key_public
-  ciuser     = var.ssh_user
-  cipassword = var.ssh_password
-
-  disk {
-    type    = var.disk_type
-    storage = var.storage_pool
-    size    = var.cp_disk_size
-  }
-
-  connection {
-    type        = "ssh"
-    user        = var.ssh_user
-    private_key = var.ssh_key_private
-    host        = self.ssh_host
-  }
-
-  provisioner "file" {
-    source      = "scripts/controlplane-first.sh"
-    destination = "/tmp/controlplane-first.sh"
-  }
-
-  provisioner "remote-exec" {
-    inline = [
-      "sudo chmod +x /tmp/controlplane-first.sh",
-      "sudo /tmp/controlplane-first.sh \"${var.controlplane_count}\" \"${self.name}\" \"${var.cluster_secret}\""
-    ]
-  }
-}
-
-resource "proxmox_vm_qemu" "controlplane_all" {
-  count       = var.controlplane_count - 1
-  name        = join("", [random_shuffle.prox_nodes.keepers.cluster_name, "-cp-", count.index + 2])
-  target_node = random_shuffle.prox_nodes.result[count.index + 1]
+resource "proxmox_vm_qemu" "nodes" {
+  count       = var.node_count
+  name        = join("", [random_shuffle.prox_nodes.keepers.cluster_name, "-", count.index + 1])
+  target_node = random_shuffle.prox_nodes.result[count.index]
   ipconfig0   = "ip=dhcp"
 
   network {
@@ -86,8 +38,8 @@ resource "proxmox_vm_qemu" "controlplane_all" {
   agent = var.qemu_agent
   clone = var.clone_template
 
-  memory     = var.cp_memory
-  cores      = var.cp_cores
+  memory     = var.node_memory
+  cores      = var.node_cores
   os_type    = var.os_type
   nameserver = var.dns_servers
   sshkeys    = var.ssh_key_public
@@ -97,7 +49,7 @@ resource "proxmox_vm_qemu" "controlplane_all" {
   disk {
     type    = var.disk_type
     storage = var.storage_pool
-    size    = var.cp_disk_size
+    size    = var.node_disk_size
   }
 
   connection {
@@ -118,8 +70,4 @@ resource "proxmox_vm_qemu" "controlplane_all" {
       "sudo /tmp/init.sh"
     ]
   }
-
-  depends_on = [
-    proxmox_vm_qemu.controlplane_first,
-  ]
 }

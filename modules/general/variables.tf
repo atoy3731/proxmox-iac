@@ -8,11 +8,6 @@ variable "cluster_name" {
   default     = "foobar"
 }
 
-variable "cluster_secret" {
-  description = "Cluster secret for nodes joining k3s"
-  type        = string
-}
-
 variable "vlan_tag" {
   description = "Tag for VLAN (Optional)"
   type        = number
@@ -93,7 +88,7 @@ variable "ssh_key_public" {
 
 variable "node_init_script" {
   description = "Init script for node(s)"
-  type = "string"
+  type = string
   default = ""
 }
 
