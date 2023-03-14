@@ -29,16 +29,16 @@ resource "proxmox_vm_qemu" "controlplane_all" {
   ipconfig0   = "ip=dhcp"
 
   network {
-    model = "virtio"
-    bridge = "vmbr0"
+    model    = "virtio"
+    bridge   = "vmbr0"
     firewall = true
-    tag = var.vlan_tag
+    tag      = var.vlan_tag
   }
 
-  agent       = var.qemu_agent
-  clone       = var.clone_template
-  bios        = var.bios
-  scsihw      = var.scsihw
+  agent  = var.qemu_agent
+  clone  = var.clone_template
+  bios   = var.bios
+  scsihw = var.scsihw
 
   memory     = var.cp_memory
   cores      = var.cp_cores
@@ -77,7 +77,7 @@ resource "proxmox_vm_qemu" "controlplane_all" {
 resource "proxmox_vm_qemu" "agents" {
   count       = var.agent_count
   name        = join("", [random_shuffle.prox_nodes.keepers.cluster_name, "-agent-", count.index + 1])
-  target_node = random_shuffle.prox_nodes.result[var.controlplane_count+count.index]
+  target_node = random_shuffle.prox_nodes.result[var.controlplane_count + count.index]
   ipconfig0   = "ip=dhcp"
   agent       = var.qemu_agent
   clone       = var.clone_template
@@ -93,10 +93,10 @@ resource "proxmox_vm_qemu" "agents" {
   cipassword = var.ssh_password
 
   network {
-    model = "virtio"
-    bridge = "vmbr0"
+    model    = "virtio"
+    bridge   = "vmbr0"
     firewall = true
-    tag = var.vlan_tag
+    tag      = var.vlan_tag
   }
 
   disk {

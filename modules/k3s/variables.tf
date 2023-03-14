@@ -15,14 +15,14 @@ variable "cluster_secret" {
 
 variable "vlan_tag" {
   description = "Tag for VLAN (Optional)"
-  type = number
-  default = -1
+  type        = number
+  default     = -1
 }
 
 variable "result_count" {
   description = "Count of results. Needs to be higher than the future expected full number of nodes."
-  type = number
-  default = 10
+  type        = number
+  default     = 10
 }
 
 variable "gateway" {
@@ -69,14 +69,14 @@ variable "storage_pool" {
 
 variable "bios" {
   description = "BIOS Setting for Proxmox VM"
-  type = string
-  default = "seabios"
+  type        = string
+  default     = "seabios"
 }
 
 variable "scsihw" {
   description = "Bios SCSI Controller for Proxmox VM"
-  type = "string"
-  default = "virtio-scsi-pci"
+  type        = string
+  default     = "virtio-scsi-pci"
 }
 
 #######
