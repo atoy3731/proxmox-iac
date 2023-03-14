@@ -10,7 +10,7 @@ variable "cluster_name" {
 
 variable "rancher_url" {
   description = "URL of Rancher"
-  type = string
+  type        = string
 }
 
 variable "rancher_token" {
@@ -20,19 +20,19 @@ variable "rancher_token" {
 
 variable "rancher_checksum" {
   description = "Rancher checksum"
-  type = string
+  type        = string
 }
 
 variable "vlan_tag" {
   description = "Tag for VLAN (Optional)"
-  type = number
-  default = -1
+  type        = number
+  default     = -1
 }
 
 variable "result_count" {
   description = "Count of results. Needs to be higher than the future expected full number of nodes."
-  type = number
-  default = 10
+  type        = number
+  default     = 10
 }
 
 variable "gateway" {
@@ -75,6 +75,18 @@ variable "storage_pool" {
   description = "Storage pool in Proxmox to use for volumes"
   type        = string
   default     = "local-lvm"
+}
+
+variable "bios" {
+  description = "BIOS Setting for Proxmox VM"
+  type        = string
+  default     = "seabios"
+}
+
+variable "scsihw" {
+  description = "Bios SCSI Controller for Proxmox VM"
+  type        = string
+  default     = "virtio-scsi-pci"
 }
 
 #######

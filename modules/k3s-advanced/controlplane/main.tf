@@ -28,6 +28,8 @@ resource "proxmox_vm_qemu" "controlplane_first" {
   ipconfig0   = "ip=dhcp"
   agent       = var.qemu_agent
   clone       = var.clone_template
+  bios        = var.bios
+  scsihw      = var.scsihw
 
   network {
     model    = "virtio"
@@ -93,6 +95,8 @@ resource "proxmox_vm_qemu" "controlplane_all" {
 
   agent = var.qemu_agent
   clone = var.clone_template
+  bios        = var.bios
+  scsihw      = var.scsihw
 
   memory     = var.cp_memory
   cores      = var.cp_cores

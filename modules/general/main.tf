@@ -35,8 +35,10 @@ resource "proxmox_vm_qemu" "nodes" {
     tag      = var.vlan_tag
   }
 
-  agent = var.qemu_agent
-  clone = var.clone_template
+  agent  = var.qemu_agent
+  clone  = var.clone_template
+  bios   = var.bios
+  scsihw = var.scsihw
 
   memory     = var.node_memory
   cores      = var.node_cores
@@ -60,7 +62,7 @@ resource "proxmox_vm_qemu" "nodes" {
   }
 
   provisioner "file" {
-    content      = var.node_init_script
+    content     = var.node_init_script
     destination = "/tmp/init.sh"
   }
 
