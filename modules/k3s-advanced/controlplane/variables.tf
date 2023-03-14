@@ -61,6 +61,18 @@ variable "storage_pool" {
   default     = "local-lvm"
 }
 
+variable "bios" {
+  description = "BIOS Setting for Proxmox VM"
+  type = string
+  default = "seabios"
+}
+
+variable "scsihw" {
+  description = "Bios SCSI Controller for Proxmox VM"
+  type = "string"
+  default = "virtio-scsi-pci"
+}
+
 #######
 # SSH #
 #######
